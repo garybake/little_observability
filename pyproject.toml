@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "little-observability"
+version = "0.1.0"
+description = ""
+authors = ["Gary Bake <garybake@gmail.com>"]
+readme = "README.md"
+packages = [{include = "little_observability"}]
+
+[tool.poetry.dependencies]
+python = "y"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
