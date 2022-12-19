@@ -21,3 +21,13 @@ Should run on rpi zero
  - Web server - something to share graphs and charts
  - Pandas server - serve data as pandas dataframes?
  - ESP8266 screen - I have some tiny screens and esp devices laying around.
+
+Setup
+=====
+
+## .env
+Fill in the entries in a .env file in the root folder
+
+    # Hub settings
+    HUB_VERSION='0.1'
+    HUB_API_VERSION='v1'
