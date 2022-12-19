@@ -31,3 +31,18 @@ Fill in the entries in a .env file in the root folder
     # Hub settings
     HUB_VERSION='0.1'
     HUB_API_VERSION='v1'
+
+
+Links
+=====
+TODO: Tidy this up  
+
+Run app
+
+    uvicorn hub.main:app --reload
+test url  
+
+    curl localhost:8000/version 
+
+ http://127.0.0.1:8000/docs
+
