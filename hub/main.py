@@ -20,8 +20,8 @@ def read_version():
     return {"version": vers}
 
 
-@prefix_router.get("/consumption")
-def read_consumption():
+@prefix_router.get("/energy/electricity_consumption")
+def read_energy_consumption():
     return {"consumption": 10.1}
 
 
