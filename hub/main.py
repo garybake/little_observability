@@ -1,28 +1,28 @@
 import os
 
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from dotenv import load_dotenv
+
+from api import api_router
 
 load_dotenv()
 
+
+# Setup app
 app = FastAPI()
-prefix_router = APIRouter(prefix=f"/{os.getenv('HUB_API_VERSION')}")
+
+# Setup routes
+app.include_router(api_router, prefix=f"/api/{os.getenv('HUB_API_VERSION')}")
 
 
-@prefix_router.get("/")
-def read_root():
+# Top level routes
+# TODO move these
+@app.get("/")
+async def read_root():
     return {"This": "TODO"}
 
 
 @app.get("/version")
-def read_version():
+async def read_version():
     vers = os.getenv('HUB_VERSION')
     return {"version": vers}
-
-
-@prefix_router.get("/energy/electricity_consumption")
-def read_energy_consumption():
-    return {"consumption": 10.1}
-
-
-app.include_router(prefix_router)
