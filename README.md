@@ -37,9 +37,10 @@ Links
 =====
 TODO: Tidy this up  
 
-Run app
+To run the hub app
 
-    uvicorn hub.main:app --reload
+    cd hub  
+    uvicorn main:app --reload
 test url  
 
     curl localhost:8000/version 
