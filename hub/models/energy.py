@@ -1,6 +1,6 @@
 from typing import List
 
-from core.db import DB
+from core.db import DBConnection
 from schemas.energy import ConsumptionResponse
 
 
@@ -10,15 +10,28 @@ class EnergyConsumption:
     def get_electricity_consumption(count: int = 100) -> List[ConsumptionResponse]:
         if not count:
             count = 100
-        d = DB()
-        results = d.execute(sql_string='SELECT * FROM CONSUMPTION LIMIT ?;', params=[str(count)], as_dict=False)
+        db = DBConnection()
+        results = db.execute(sql_string='SELECT * FROM CONSUMPTION where interval_start < 100 LIMIT ?;', params=[str(count)], as_dict=False)
         column_names = ['product', 'interval_start', 'interval_end', 'consumption']
         consumption = [dict(zip(column_names, row)) for row in results]
 
         return consumption
 
     @staticmethod
-    def add_electricity_consumption(data: List[ConsumptionResponse]) -> bool:
-        print(data)
+    def row_db_format(row):
+        return [row.interval_start, row.interval_end, row.consumption]
 
-        return True
+    @classmethod
+    def save_to_db(cls, rows):
+        all_rows = [cls.row_db_format(r) for r in rows]
+
+        sql_string = 'REPLACE INTO CONSUMPTION (PRODUCT, INTERVAL_START, INTERVAL_END, CONSUMPTION) VALUES("Electricity", ?,?,?)'
+
+        db = DBConnection()
+        results = db.save_to_db(sql_string=sql_string, data=all_rows)
+        return results
+
+    @classmethod
+    def add_electricity_consumption(cls, data: List[ConsumptionResponse]) -> int:
+        update_count = cls.save_to_db(data)
+        return update_count

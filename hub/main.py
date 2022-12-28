@@ -26,3 +26,14 @@ async def read_root():
 async def read_version():
     vers = os.getenv('HUB_VERSION')
     return {"version": vers}
+
+@app.get("/heartbeat")
+async def read_heartbeat():
+    vers = os.getenv('HUB_VERSION')
+    return {
+        "is_alive": True,
+        "version": vers,
+        "modules": [
+            "energy"
+        ]
+    }

@@ -18,7 +18,6 @@ async def read_energy_consumption(count: Union[int, None] = None) -> Consumption
 
 @router.post("/electricity_consumption")
 async def post_energy_consumption(cons: List[ConsumptionResponse]):
-    added = EnergyConsumption.add_electricity_consumption(data=cons)
-    print(added)
-    resp = {'status': 'success'}
+    added = EnergyConsumption().add_electricity_consumption(data=cons)
+    resp = {'status': 'success', 'rows_changed': added}
     return resp

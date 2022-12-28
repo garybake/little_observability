@@ -2,7 +2,7 @@ import os
 import sqlite3
 
 
-class DB:
+class DBConnection:
     def __init__(self):
         self.db_path = os.getenv('DB_PATH')
 
@@ -25,3 +25,10 @@ class DB:
         cursor.close()
 
         return results
+
+    def save_to_db(self, sql_string, data):
+        conn = self.get_conn()
+        c = conn.executemany('REPLACE INTO CONSUMPTION (PRODUCT, INTERVAL_START, INTERVAL_END, CONSUMPTION) VALUES("Electricity", ?,?,?);', data);
+        conn.commit()
+        conn.close()
+        return c.rowcount
