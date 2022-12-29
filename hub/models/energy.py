@@ -11,11 +11,21 @@ class EnergyConsumption:
         if not count:
             count = 100
         db = DBConnection()
-        results = db.execute(sql_string='SELECT * FROM CONSUMPTION LIMIT ?;', params=[str(count)], as_dict=False)
+        results = db.execute(sql_string='SELECT * FROM CONSUMPTION LIMIT ?;', params=[str(count)])
         column_names = ['product', 'interval_start', 'interval_end', 'consumption']
         consumption = [dict(zip(column_names, row)) for row in results]
 
         return consumption
+
+    @staticmethod
+    def get_electricity_consumption_latest() -> List[ConsumptionResponse]:
+        db = DBConnection()
+        results = db.execute(sql_string='SELECT * FROM CONSUMPTION ORDER BY INTERVAL_START DESC LIMIT 1;')
+        column_names = ['product', 'interval_start', 'interval_end', 'consumption']
+        consumption = [dict(zip(column_names, row)) for row in results]
+
+        return consumption
+
 
     @staticmethod
     def row_db_format(row):

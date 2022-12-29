@@ -10,7 +10,7 @@ class DBConnection:
         conn = sqlite3.connect(self.db_path)
         return conn
 
-    def execute(self, sql_string: str, params=[], as_dict=True):
+    def execute(self, sql_string: str, params=[], as_dict=False):
         conn = self.get_conn()
         cursor = conn.cursor()
         cursor.execute(sql_string, params)

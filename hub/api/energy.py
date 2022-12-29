@@ -2,8 +2,9 @@ from typing import List, Union
 
 from fastapi import APIRouter
 
-from schemas.energy import ConsumptionResponse
+from schemas.energy import ConsumptionResponse, ConsumptionResponseReadable
 from models.energy import EnergyConsumption
+from core.utils import unix_to_datetime_string
 
 
 router = APIRouter()
@@ -12,7 +13,15 @@ router = APIRouter()
 @router.get("/electricity_consumption", response_model=List[ConsumptionResponse])
 async def read_energy_consumption(count: Union[int, None] = None) -> ConsumptionResponse:
     resp = EnergyConsumption.get_electricity_consumption(count=count)
-    print(f"count: {count}")
+    return resp
+
+
+@router.get("/electricity_consumption/latest", response_model=ConsumptionResponseReadable)
+async def read_energy_consumption_latest() -> ConsumptionResponseReadable:
+    resp = EnergyConsumption.get_electricity_consumption_latest()[0]
+    resp['interval_start'] = unix_to_datetime_string(resp['interval_start'])
+    resp['interval_end'] = unix_to_datetime_string(resp['interval_end'])
+        
     return resp
 
 
