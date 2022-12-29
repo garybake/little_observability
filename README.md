@@ -31,6 +31,15 @@ Fill in the entries in a .env file in the root folder
     # Hub settings
     HUB_VERSION='0.1'
     HUB_API_VERSION='v1'
+    DB_PATH='logs.db'
+
+    # Energy settings
+    ELECTRICITY_BASE_URL=https://api.octopus.energy/v1/
+    ELECTRICITY_API_KEY=***
+    ELECTRICITY_MPAN=***
+    ELECTRICITY_SERIAL=***
+    ELECTRICITY_API_URL=http://localhost:8000/api/v1/energy/electricity_consumption
+
 
 
 Links
@@ -47,3 +56,17 @@ test url
 
  http://127.0.0.1:8000/docs
 
+
+Electricity Module
+==================
+Fill in the .env with the ELECTRICITY variables.
+Variables can be found at https://octopus.energy/dashboard/developer/  
+
+Docs for the api can be found at  
+https://developer.octopus.energy/docs/api/
+
+    usage: energy.py [-h] [-r ROWS]
+
+    options:
+    -h, --help            show this help message and exit
+    -r ROWS, --rows ROWS  Number of rows to request

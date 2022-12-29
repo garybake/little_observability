@@ -11,7 +11,7 @@ class EnergyConsumption:
         if not count:
             count = 100
         db = DBConnection()
-        results = db.execute(sql_string='SELECT * FROM CONSUMPTION where interval_start < 100 LIMIT ?;', params=[str(count)], as_dict=False)
+        results = db.execute(sql_string='SELECT * FROM CONSUMPTION LIMIT ?;', params=[str(count)], as_dict=False)
         column_names = ['product', 'interval_start', 'interval_end', 'consumption']
         consumption = [dict(zip(column_names, row)) for row in results]
 
