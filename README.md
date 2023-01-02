@@ -70,3 +70,14 @@ https://developer.octopus.energy/docs/api/
     options:
     -h, --help            show this help message and exit
     -r ROWS, --rows ROWS  Number of rows to request
+
+Shares Module
+=============
+Tracks share prices  
+grab an api key at https://twelvedata.com/  
+
+.env file
+
+    SHARES_BASE_URL=https://api.twelvedata.com/time_series
+    SHARES_TWELVEDATA_KEY=***
+    SHARES_WATCH_LIST="APPL,BRK.B"
